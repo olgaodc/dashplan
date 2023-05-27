@@ -5,9 +5,7 @@ const displayItems = (projectItem) => {
     projectsContainer.append(projectSection);
 
     const name  = projectItem.projectName;
-
     const deadline = projectItem.deadline;
-
 
     const projectInfo = document.createElement('div');
     projectInfo.setAttribute('class', 'projectInfo');
@@ -37,15 +35,13 @@ const displayItems = (projectItem) => {
         date.innerHTML = entry.date;
         planItem.append(date);
     
-        // const busyHours = document.createElement('span');
-        // busyHours.innerHTML = entry.busyHours;
-        // projectSection.append(busyHours);
-    
         const workHours = document.createElement('span');
         workHours.innerHTML = entry.workHours;
         planItem.append(workHours);
     });
 }
+
+
 
 
 const displayProjects = async () => {
@@ -139,22 +135,51 @@ submit.addEventListener('click', async () => {
         return;
     };
 
+    // Calculate totalDays based on the current date and deadline
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    const totalDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
 
+    let totalBusyHours = 0;
+
+    // Calculate total busy hours
+    for (let i = 0; i < busyHoursInputs.length; i++) {
+        const busyHoursInput = busyHoursInputs[i];
+        const busyHours = Number(busyHoursInput.value);
+        totalBusyHours += busyHours;
+    }
+
+    const additionalBusyHours = totalDays * 10;
+    totalBusyHours += additionalBusyHours;
+
+    const remainingWorkHours = (totalDays * 24) - totalBusyHours;
+
+
+    // if (totalWorkHours < projectHours) {
+    //     message.innerHTML = 'Total work hours exceed project hours';
+    //     return;
+    // };
+
+
+    const workHoursPerDay = projectHours / totalDays;
+
+
+    // Generate the busynessData array with work hours per day
     for (let i = 0; i < dateInputs.length; i++) {
         const dateInput = dateInputs[i];
         const date = dateInput.value;
         const busyHoursInput = busyHoursInputs[i];
-        const busyHours = busyHoursInput.value;
+        const busyHours = Number(busyHoursInput.value);
 
         if(busyHours < 0 || busyHours > 24) {
             message.innerHTML = 'Bad hours';
             return;
-        } 
-            
-        const workHours = 24 - 10 - busyHours;
-        busynessData.push({date, busyHours, workHours});        
-    };
-
+        }
+        
+        const workHours = workHoursPerDay + (i < remainingWorkHours ? 1 : 0);
+        busynessData.push({date, busyHours, workHours});
+    }
+    
     const newProject = {
         projectName: projectName,
         projectHours: projectHours,
@@ -174,3 +199,37 @@ submit.addEventListener('click', async () => {
 function hasEmptyInputs(inputs) {
     return Array.from(inputs).some((input) => input.value === '');
 }
+
+
+
+function generateDates() {
+    // Tęstinis kodas, kuriame jau yra įvestos pradinės datos ir užimtos valandos
+
+    // Gaukite pirmąją įvestą datą ir užimtų valandų skaičių
+    const startDateInput = document.getElementById('startDate');
+    const startDate = new Date(startDateInput.value);
+    const busyHoursInput = document.getElementById('busyHours');
+    const busyHours = Number(busyHoursInput.value);
+
+    // Nustatykite projekto trukmę
+    const deadlineInput = document.getElementById('deadline');
+    const deadline = new Date(deadlineInput.value);
+    const totalDays = Math.ceil((deadline - startDate) / (1000 * 60 * 60 * 24));
+
+    // Sukurkite masyvą, kuriame saugosite duomenis apie datą ir valandas
+    const busynessData = [];
+
+    // Generuokite ir užpildykite likusias datas su valandomis
+    for (let i = 0; i < totalDays; i++) {
+    const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000); // Pridėkite 1 dieną prie pradinės datos
+    const currentDateString = currentDate.toISOString().split('T')[0]; // Konvertuokite datą į tinkamą formatą (be laiko)
+    const workHours = 24 - busyHours; // Skaičiuokite laisvas valandas (24 valandos per dieną - užimtos valandos)
+    
+    busynessData.push({ date: currentDateString, busyHours, workHours });
+    }
+
+    // Atvaizduokite sugeneruotus duomenis arba panaudokite juos kitai veiksmų
+    console.log(busynessData);
+
+}
+
