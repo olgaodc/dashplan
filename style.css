@@ -6,6 +6,7 @@ body {
     margin: 0;
     background: linear-gradient( rgb(248, 183, 92), rgb(245, 205, 87));
     font-family: 'Inter', sans-serif;
+    min-width: 370px;
 }
 
 .container {
@@ -36,27 +37,24 @@ body {
 
 .navbar-item {
     list-style-type: none;
-}
-
-.item-link {
-    text-decoration: none;
     color: rgb(49, 47, 47);
     font-size: 18px;
     font-weight: 600;
-    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
 }
 
-.item-link:hover {
+.navbar-item:hover {
     color: #0055A3;
 }
 
 .hero-box {
     margin: 60px 0 130px;
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-    padding: 50px;
+    gap: 50px; */
+    padding: 50px 70px;
     position: relative;
 }
 
@@ -74,10 +72,10 @@ body {
 }
 
 .hero-description {
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .app-title {
@@ -101,6 +99,8 @@ body {
 }
 
 .hero-button {
+    display: flex;
+    align-self: center;
     max-width: 170px;
     padding: 12px 30px;
     font-family: 'Inter', sans-serif;
@@ -129,23 +129,36 @@ body {
     width: 420px;
     /* height: 50%; */
     object-fit: contain;
+    position: absolute;
+    z-index: -1;
+    right: 75px;
+    top: 100px;
 }
 
 
 
+.form-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+}
 
-
+.form-image {
+    width: 40%;
+    height: 445px;
+    object-fit: cover;
+}
 
 .form {
     /* margin-bottom: 100px; */
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
 }
 
 .form-title {
     font-size: 42px;
     font-weight: 800;
+    line-height: 130%;
     /* color: rgb(49, 47, 47); */
     color: #0473CE;
     margin: 20px 0 40px;
@@ -153,24 +166,33 @@ body {
 
 .form-top {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 20px;
+    padding-left: 30px;
+}
+
+.form-top input {
+    width: 300px;
 }
 
 .availability-title {
     margin: 30px 0 20px;
     font-size: 22px;
     color: rgb(49, 47, 47);
+    padding-left: 30px;
 }
 
 .form-bottom {
     display: flex;
     flex-direction: column;
+    padding-left: 30px;
 }
 
 .form-bottom-section {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
     margin-bottom: 10px;
 }
 
@@ -185,6 +207,11 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 25px;
+    transition: 0.2s;
+}
+
+.button:hover {
+    box-shadow: 3px 8px 21px 0px rgba(0,0,0,0.76);
 }
 
 .button.add {
@@ -216,6 +243,10 @@ label {
     font-weight: 600;
 }
 
+.form-bottom-section input {
+    max-width: 150px;
+}
+
 input {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -224,7 +255,14 @@ input {
     background-color: #F8CD7A;
     padding: 8px;
     color: rgb(45, 44, 44);
-    width: 150px;
+}
+
+.message {
+    color: #c50000;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 25px 0;
+    text-align: center;
 }
 
 
@@ -251,11 +289,12 @@ input {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 7px;
+    line-height: 135%;
 }
 
 .titles {
-    border-top: 1.5px solid rgb(116 112 112 / 48%);
-    border-bottom: 1.5px solid rgb(116 112 112 / 48%);
+    border-top: 1px solid #c5d3ddad;
+    border-bottom: 1px solid #c5d3ddad;
     padding: 2px 0;
     margin-bottom: 5px;
     font-weight: 500;
@@ -285,6 +324,7 @@ input {
 
 
 
+
 .footer {
     display: flex;
     justify-content: center;
@@ -296,4 +336,111 @@ input {
     text-align: center;
     font-size: 16px;
     font-weight: 500;
+}
+
+
+
+@media (max-width: 990px) {
+    .hero-description {
+        width: 60%;
+    }
+
+    .hero-image {
+        width: 270px;
+        top: 42px;
+    }
+
+    .form-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .form-title {
+        margin-top: 0;
+    }
+
+    .form-image {
+        width: 80%;
+        border-radius:  50% 20% / 10% 40%;
+    }
+
+    .form {
+        align-items: center;
+    }
+
+    .form-title {
+        text-align: center;
+    }
+
+    .form-top, .availability-title, .form-bottom {
+        padding-left: 0;
+    }
+
+    .availability-title {
+        margin-top: 40px
+    }
+}
+
+@media (max-width: 789px) {
+    .hero-box {
+        padding: 35px 45px;
+    }
+
+    .hero-description {
+        width: 100%;
+    }
+
+    .hero-title {
+        width: 50%;
+    }
+
+    .hero-image {
+        width: 180px;
+        top: 30px;
+        right: 50px;
+    }
+
+    .form-image {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .navbar-list {
+        gap: 25px;
+    }
+
+    .hero-box {
+        padding: 25px 30px;
+        margin-bottom: 90px;
+    }
+
+    .hero-title {
+        font-size: 46px;
+    }
+
+    .hero-image {
+        width: 120px;
+        top: 20px;
+        right: 30px;
+    }
+
+    .form-title {
+        font-size: 36px;
+    }
+
+    .form-top input {
+        width: unset;
+        max-width: 197px;
+    }
+
+    .form-bottom-section {
+        align-items: flex-end;
+    }
 }

@@ -1,7 +1,28 @@
+const aboutLink = document.querySelector('.about');
+const aboutSection = document.getElementById('about-section');
+
+aboutLink.addEventListener('click', () => {
+    aboutSection.scrollIntoView({ 
+        block: 'start',
+        behavior: 'smooth',
+    });
+})
+
+
 const heroButton = document.querySelector('.hero-button');
-const form = document.querySelector('.form');
+const form = document.getElementById('form');
 
 heroButton.addEventListener('click', () => {
+    form.scrollIntoView({ 
+        block: 'start',
+        behavior: 'smooth',
+    });
+})
+
+
+const tryLink = document.querySelector('.try');
+
+tryLink.addEventListener('click', () => {
     form.scrollIntoView({ 
         block: 'start',
         behavior: 'smooth',
@@ -147,7 +168,6 @@ createButton.addEventListener('click', async () => {
     
     message = document.createElement('div');
     message.setAttribute('class', 'message');
-    message.style.color = "red";
     const form = document.querySelector('.form');
     form.append(message);
 
@@ -210,8 +230,8 @@ createButton.addEventListener('click', async () => {
     
     postProject(newProject);
     
-    message.style.color = "green";
-    message.innerHTML = 'saved successfully';
+    // message.style.color = "green";
+    // message.innerHTML = 'saved successfully';
 
     console.log(newProject);
     
