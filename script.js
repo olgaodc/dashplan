@@ -1,8 +1,24 @@
+const heroButton = document.querySelector('.hero-button');
+const form = document.querySelector('.form');
+
+heroButton.addEventListener('click', () => {
+    form.scrollIntoView({ 
+        block: 'start',
+        behavior: 'smooth',
+    });
+})
+
+
+
 const displayItems = (projectItem) => {
-    const projectsContainer = document.querySelector('.projectsContainer');
+    const projectsContainerWrapper = document.querySelector('.projectsContainer-wrapper');
+    const projectContainer = document.createElement('div');
+    projectContainer.setAttribute('class', 'projectContainer');
+    projectsContainerWrapper.append(projectContainer);
+
     const projectSection = document.createElement('div');
     projectSection.setAttribute('class', 'projectSection');
-    projectsContainer.append(projectSection);
+    projectContainer.append(projectSection);
 
     const name  = projectItem.projectName;
     const deadline = projectItem.deadline;
@@ -53,8 +69,8 @@ const displayProjects = async () => {
             return Date(a.date) - Date(a.date);
         });
 
-        const projectsContainer = document.querySelector('.projectsContainer');
-        projectsContainer.innerHTML = ''; 
+        const projectsContainerWrapper = document.querySelector('.projectsContainer-wrapper');
+        projectsContainerWrapper.innerHTML = ''; 
 
         data.forEach(projectItem => {
             return displayItems(projectItem);
@@ -92,26 +108,31 @@ const postProject = async (newProject) => {
 
 
 
-const button = document.getElementById('button');
+const addButton = document.getElementById('add-button');
 
-button.addEventListener("click", () => {
+addButton.addEventListener("click", () => {
     // event.preventDefault();
-    const busyness = document.createElement('div');
-    busyness.innerHTML = `<label>Diena</label>
-            <input type="date" class="date">
-            <label>Busy hours</label>
-            <input type="number" min="0" max="24" class="busyHours">`;
-    const formTop = document.querySelector('.form-top');
-    formTop.append(busyness);
+    const formBottomSection = document.createElement('div');
+    formBottomSection.setAttribute('class', 'form-bottom-section')
+    formBottomSection.innerHTML = `<div>
+                                        <label>Date:</label>
+                                        <input type="date" class="date">
+                                    </div>
+                                    <div>
+                                        <label>Busy hours:</label>
+                                        <input type="number" min="0" max="24" class="busyHours">
+                                    </div>`;
+    const formBottom = document.querySelector('.form-bottom');
+    formBottom.append(formBottomSection);
 });
 
 
 
 
-const submit = document.getElementById('submit');
+const createButton = document.getElementById('create-button');
 let message;
 
-submit.addEventListener('click', async () => {    
+createButton.addEventListener('click', async () => {    
     const projectName = document.getElementById('projectName').value;
     const projectHours = document.getElementById('projectHours').value;
     const deadline = document.getElementById('deadline').value;

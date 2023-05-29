@@ -1,0 +1,299 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient( rgb(248, 183, 92), rgb(245, 205, 87));
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 50px;
+}
+
+.navbar {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-text {
+    font-family: 'Righteous', cursive;
+    font-size: 26px
+}
+
+.navbar-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px;
+}
+
+.navbar-item {
+    list-style-type: none;
+}
+
+.item-link {
+    text-decoration: none;
+    color: rgb(49, 47, 47);
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+}
+
+.item-link:hover {
+    color: #0055A3;
+}
+
+.hero-box {
+    margin: 60px 0 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px;
+    position: relative;
+}
+
+.hero-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    background-color: white;
+    border-radius: 25px;
+    z-index: -1;
+}
+
+.hero-description {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-title {
+    font-weight: 700;
+}
+
+.hero-title {
+    text-align: left;
+    font-size: 64px;
+    font-weight: 800;
+    margin: 0 0 30px;
+    color: rgb(49, 47, 47);
+}
+
+.paragraph {
+    color: rgb(45, 44, 44);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 140%;
+    margin: 0 0 30px;
+}
+
+.hero-button {
+    max-width: 170px;
+    padding: 12px 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    margin-top: 20px;
+    background-color: #0473CE;
+    color: white;
+    transition-property: all;
+    transition-duration: 0.5s;
+}
+
+.hero-button:hover {
+    padding: 12px 40px;
+    letter-spacing: 2px;
+    background-color: white;
+    color: #0473CE;
+
+}
+
+.hero-image {
+    display: block;
+    width: 420px;
+    /* height: 50%; */
+    object-fit: contain;
+}
+
+
+
+
+
+
+.form {
+    /* margin-bottom: 100px; */
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+
+.form-title {
+    font-size: 42px;
+    font-weight: 800;
+    /* color: rgb(49, 47, 47); */
+    color: #0473CE;
+    margin: 20px 0 40px;
+}
+
+.form-top {
+    display: flex;
+    gap: 30px;
+}
+
+.availability-title {
+    margin: 30px 0 20px;
+    font-size: 22px;
+    color: rgb(49, 47, 47);
+}
+
+.form-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-bottom-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 10px;
+}
+
+.button {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    max-width: 130px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.button.add {
+    background-color: white;
+    padding: 10px 11px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-image {
+    width: 17px;
+    height: 17px;
+    fill: #0055A3;
+}
+
+.button.create {
+    display: flex;
+    align-self: center;
+    margin-top: 30px;
+    background-color: #0473CE;
+    color: white;
+}
+
+
+label {
+    color: rgb(49, 47, 47);
+    font-weight: 600;
+}
+
+input {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F8CD7A;
+    padding: 8px;
+    color: rgb(45, 44, 44);
+    width: 150px;
+}
+
+
+.projectsContainer-wrapper {
+    margin-bottom: 100px;
+}
+
+.projectContainer {
+    background-color: #F8CD7A;
+    border-radius: 25px;
+    padding: 30px 40px;
+}
+
+.projectContainer:first-of-type {
+    margin-top: 30px;
+}
+
+.projectContainer:not(:last-of-type) {
+    margin-bottom: 50px;
+}
+
+.projectInfo {
+    color: rgb(49, 47, 47);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.titles {
+    border-top: 1.5px solid rgb(116 112 112 / 48%);
+    border-bottom: 1.5px solid rgb(116 112 112 / 48%);
+    padding: 2px 0;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: rgb(49, 47, 47);
+}
+
+.planItem {
+    padding: 2px 0;
+    color: rgb(45, 44, 44);
+}
+
+.titles, .planItem {
+    display: flex;
+    gap: 50px;
+}
+
+.titles span, .planItem span {
+    width: 120px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+    border-top: 1.5px solid rgb(60, 59, 59);
+}
+
+.footer-info {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}

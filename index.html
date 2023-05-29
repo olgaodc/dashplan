@@ -4,34 +4,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>DashPlan</title>
 </head>
 <body>
-    <div class="form">
-        <div class="form-top">
-            <label for="">Nurodykite pavadinima</label>
-            <input type="text" name="" id="projectName">
-            <label for="">Nurodykite valandu kieki</label>
-            <input type="number" id="projectHours" min="0">
-            <label for="">Nurodykite termina</label>
-            <input type="date" name="" id="deadline">
-
-            <div>
-                <h2>Pridekite savo uzimtuma:</h2>
-                <label>Diena</label>
-                <input type="date" class="date">
-                <label>Busy hours</label>
-                <input type="number" min="0" max="24" class="busyHours">
+    <div class="navbar-wrapper">
+        <div class="container">
+            <div class="navbar">
+                <span class="logo-text">DashPlan</span>
+                
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a class="item-link"
+                        href="">About</a></li>
+                    <li class="navbar-item"><a class="item-link"
+                        href="">Try Free</a></li>
+                </ul>
             </div>
         </div>
-        <button id="button">+ Prideti</button>
-        <button id="submit">Sudaryti grafika</button>
     </div>
-        <hr>
-        <div class="projectsContainer"></div>
-        <!-- <div>All projects</div> -->        
-    
+
+    <div class="hero-box-wrapper">
+        <div class="container">
+            <div class="hero-box">
+                <div class="hero-description">
+                    <h1 class="hero-title">Plan, Track, Succeed</h1>
+                    <p class="paragraph"><span class="app-title">DashPlan</span> is a comprehensive productivity app designed to help individuals and teams maximize their efficiency and achieve their goals. This app combines task management and time tracking to streamline workflows and enhance productivity.</p>
+                    <p class="paragraph">Boost your productivity, accomplish more, and achieve your goals with <span class="app-title">DashPlan</span>. Experience a new level of efficiency, organization, and success in your personal and professional life.</p>
+                    <button class="hero-button">Try Free</button>
+                </div>
+                <img class="hero-image" src="./img/timer.png" alt="">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="form-wrapper">
+        <div class="container">
+            <div class="form">
+                <h2 class="form-title">Let's Try DashPlan Beta Today!</h2>
+                <div class="form-top">
+                    <div>
+                        <label for="">Project Name:</label>
+                        <input type="text" name="" id="projectName" autocomplete="off">
+                    </div>
+                    <div>
+                        <label for="">Project Hours:</label>
+                        <input type="number" id="projectHours" min="0" >
+                    </div>
+                    <div>
+                        <label for="">Project Deadline:</label>
+                        <input type="date" name="" id="deadline">
+                    </div>
+                </div>
+                <h3 class="availability-title">Add your availability:</h3>
+                <div class="form-bottom">
+                    <div class="form-bottom-section">
+                        <div>
+                            <label>Date:</label>
+                            <input type="date" class="date">
+                        </div>
+                        <div>
+                            <label>Busy hours:</label>
+                            <input type="number" min="0" max="24" class="busyHours">
+                        </div>
+                        <button id="add-button" class="button add">
+                            <svg class="button-image" style="enable-background:new 0 0 36 36;" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+                            </style><g id="Layer_1"/><g id="icons"><path class="st0" d="M19.6,2h-3.2c-0.9,0-1.6,0.7-1.6,1.6v11.2H3.6c-0.9,0-1.6,0.7-1.6,1.6v3.2c0,0.9,0.7,1.6,1.6,1.6   h11.2v11.2c0,0.9,0.7,1.6,1.6,1.6h3.2c0.9,0,1.6-0.7,1.6-1.6V21.2h11.2c0.9,0,1.6-0.7,1.6-1.6v-3.2c0-0.9-0.7-1.6-1.6-1.6H21.2V3.6   C21.2,2.7,20.5,2,19.6,2z" id="add_1_"/></g></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="create-button" class="button create">Create Plan</button>
+            </div>
+                
+            <div class="projectsContainer-wrapper"></div> 
+        </div>
+    </div>
+
+    <div class="footer-wrapper">
+        <div class="container">
+            <div class="footer">
+                <span class="footer-info">© Copyright 2023 DashPlan</span>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
