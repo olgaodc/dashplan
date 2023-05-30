@@ -431,6 +431,10 @@ input {
         right: 30px;
     }
 
+    .form-image {
+        height: 300px;
+    }
+
     .form-title {
         font-size: 36px;
     }
