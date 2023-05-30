@@ -255,6 +255,7 @@ input {
     background-color: #F8CD7A;
     padding: 8px;
     color: rgb(45, 44, 44);
+    height: 33px;
 }
 
 .message {
