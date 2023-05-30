@@ -136,12 +136,12 @@ addButton.addEventListener("click", () => {
     const formBottomSection = document.createElement('div');
     formBottomSection.setAttribute('class', 'form-bottom-section')
     formBottomSection.innerHTML = `<div>
-                                        <label>Date:</label>
-                                        <input type="date" class="date">
+                                        <label for="date">Date:</label>
+                                        <input type="date" name="date" class="date">
                                     </div>
                                     <div>
-                                        <label>Busy hours:</label>
-                                        <input type="number" min="0" max="24" class="busyHours">
+                                        <label for="busy-hours">Busy hours:</label>
+                                        <input type="number" name="busy-hours" min="0" max="24" class="busyHours">
                                     </div>`;
     const formBottom = document.querySelector('.form-bottom');
     formBottom.append(formBottomSection);
@@ -170,6 +170,14 @@ createButton.addEventListener('click', async () => {
     message.setAttribute('class', 'message');
     const form = document.querySelector('.form');
     form.append(message);
+
+    if(projectHours < 0) {
+      return message.innerHTML = "Project Hours cannot be less than 0";
+    }
+
+    if(projectHours > 300) {
+        return message.innerHTML = "Project Hours cannot be more than 300";
+    }
 
     if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
         message.innerHTML = 'Please fill all fields!!!!';

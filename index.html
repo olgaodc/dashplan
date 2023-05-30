@@ -47,28 +47,28 @@
                     <h2 class="form-title">Let's Try DashPlan Beta Today!</h2>
                 <div class="form-top">
                     <div>
-                        <label for="">Project Name:</label>
-                        <input type="text" name="" id="projectName" autocomplete="off">
+                        <label for="name">Project Name:</label>
+                        <input type="text" name="name" id="projectName" autocomplete="off">
                     </div>
                     <div>
-                        <label for="">Project Hours:</label>
-                        <input type="number" id="projectHours" min="0" >
+                        <label for="project-hours">Project Hours:</label>
+                        <input type="number" name="project-hours" id="projectHours" min="0" max="300">
                     </div>
-                    <div>
-                        <label for="">Project Deadline:</label>
-                        <input type="date" name="" id="deadline">
+                    <div class="deadline-section">
+                        <label for="deadline">Project Deadline:</label>
+                        <input type="date" name="deadline" id="deadline">
                     </div>
                 </div>
                 <h3 class="availability-title">Add your availability:</h3>
                 <div class="form-bottom">
                     <div class="form-bottom-section">
                         <div>
-                            <label>Date:</label>
-                            <input type="date" class="date">
+                            <label for="date">Date:</label>
+                            <input type="date" name="date" class="date">
                         </div>
                         <div>
-                            <label>Busy hours:</label>
-                            <input type="number" min="0" max="24" class="busyHours">
+                            <label for="busy-hours">Busy hours:</label>
+                            <input type="number" name="busy-hours" min="0" max="24" class="busyHours">
                         </div>
                         <button id="add-button" class="button add">
                             <svg class="button-image" style="enable-background:new 0 0 36 36;" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
