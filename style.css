@@ -244,7 +244,7 @@ label {
 }
 
 .form-bottom-section input {
-    max-width: 150px;
+    width: 120px;
 }
 
 input {
