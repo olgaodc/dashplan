@@ -31,6 +31,7 @@ tryLink.addEventListener('click', () => {
 
 
 
+
 const displayItems = (projectItem) => {
     const projectsContainerWrapper = document.querySelector('.projectsContainer-wrapper');
     const projectContainer = document.createElement('div');
@@ -44,10 +45,34 @@ const displayItems = (projectItem) => {
     const name  = projectItem.projectName;
     const deadline = projectItem.deadline;
 
+    const projectInfoWrapper = document.createElement('div');
+    projectInfoWrapper.setAttribute('class', 'projectInfoWrapper');
+    projectSection.append(projectInfoWrapper);
+
     const projectInfo = document.createElement('div');
     projectInfo.setAttribute('class', 'projectInfo');
     projectInfo.innerHTML = `There are a working plan for your project ${name}, your deadline is ${deadline}:`
-    projectSection.append(projectInfo);
+    projectInfoWrapper.append(projectInfo);
+
+    const deleteProject = document.createElement('img');
+    deleteProject.setAttribute('class', 'deleteIcon');
+    deleteProject.setAttribute('src', './img/trash-icon.png');
+    projectInfoWrapper.append(deleteProject);
+
+    const itemId = localStorage.getItem('id');
+
+    deleteProject.addEventListener('click', () => {
+        localStorage.setItem('id', projectItem.id);
+        const itemId = localStorage.getItem('id');
+        
+        fetch (`https://642c65dc208dfe25472f319b.mockapi.io/projects/${itemId}`, {
+        method: 'DELETE'}).then(res => {
+            projectContainer.remove();
+    
+        }).catch(err => {
+                console.log('Failed to delete resources', err)
+        });
+    })
 
     const titles = document.createElement('div');
     titles.setAttribute('class', 'titles');
@@ -77,7 +102,6 @@ const displayItems = (projectItem) => {
         planItem.append(workHours);
     });
 }
-
 
 
 
