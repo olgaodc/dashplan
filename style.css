@@ -224,18 +224,25 @@ body {
     box-shadow: 3px 8px 21px 0px rgba(0,0,0,0.76);
 }
 
-.button.add {
+.button.add, .button.removeDate {
     background-color: white;
-    padding: 11px 11px;
+    padding: 9px 9px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+
+
+.removeDateButton-image {
+    width: 15px;
+    height: 15px;
+}
+
 .button-image {
-    width: 17px;
-    height: 17px;
+    width: 15px;
+    height: 15px;
     fill: #0055A3;
 }
 

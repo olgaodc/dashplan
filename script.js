@@ -158,7 +158,7 @@ const addButton = document.getElementById('add-button');
 addButton.addEventListener("click", () => {
     // event.preventDefault();
     const formBottomSection = document.createElement('div');
-    formBottomSection.setAttribute('class', 'form-bottom-section')
+    formBottomSection.setAttribute('class', 'form-bottom-section');
     formBottomSection.innerHTML = `<div>
                                         <label for="date">Date:</label>
                                         <input type="date" name="date" class="date">
@@ -166,9 +166,19 @@ addButton.addEventListener("click", () => {
                                     <div>
                                         <label for="busy-hours">Busy hours:</label>
                                         <input type="number" name="busy-hours" min="0" max="24" class="busyHours">
-                                    </div>`;
+                                    </div>
+                                    <button class="removeDate button">
+                                        <img class="removeDateButton-image" src="./img/remove.png">
+                                    </button>`;
     const formBottom = document.querySelector('.form-bottom');
     formBottom.append(formBottomSection);
+
+    const removeDateButton = formBottomSection.querySelector('.removeDate');
+        removeDateButton.addEventListener('click', () => {
+            const formBottomSection = removeDateButton.closest('.form-bottom-section');
+            formBottomSection.remove();
+        })
+    
 });
 
 
@@ -213,9 +223,9 @@ createButton.addEventListener('click', async () => {
     const deadlineDate = new Date(deadline);
     const totalDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
 
-    // if (deadline < today) {
-    //     return message.innerHTML = 'The deadline cannot be a past date';
-    // }
+    if (deadlineDate < today) {
+        return message.innerHTML = 'The deadline cannot be a past date';
+    }
 
     let totalBusyHours = 0;
 
@@ -241,6 +251,8 @@ createButton.addEventListener('click', async () => {
     const workHoursPerDay = projectHours / totalDays;
 
 
+    const selectedDates = new Set();
+
     // Generate the busynessData array with work hours per day
     for (let i = 0; i < dateInputs.length; i++) {
         const dateInput = dateInputs[i];
@@ -256,6 +268,12 @@ createButton.addEventListener('click', async () => {
         if(busyHours > 10) {
             return message.innerHTML = "Busy hours cannot be more than 10";
         }
+
+        if (selectedDates.has(date)) {
+            return message.innerHTML = "Duplicate date entry";
+        }
+
+        selectedDates.add(date); 
         
         let workHours = Math.floor(workHoursPerDay);
         if (i < remainingWorkHours % totalDays) {
