@@ -199,8 +199,9 @@ body {
 }
 
 .form-bottom-section {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 0.2fr;
+    align-items: end;
     gap: 30px;
     margin-bottom: 10px;
 }
@@ -225,7 +226,7 @@ body {
 
 .button.add {
     background-color: white;
-    padding: 10px 11px;
+    padding: 11px 11px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -352,11 +353,11 @@ input {
 .footer {
     display: flex;
     justify-content: center;
-    padding-bottom: 15px;
     /* border-top: 1.5px solid rgb(60, 59, 59); */
 }
 
 .footer-info {
+    margin: 40px 0 20px;
     text-align: center;
     color: rgb(49, 47, 47);
     font-size: 16px;

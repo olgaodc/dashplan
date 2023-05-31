@@ -70,7 +70,7 @@ const displayItems = (projectItem) => {
             projectContainer.remove();
     
         }).catch(err => {
-                console.log('Failed to delete resources', err)
+            console.log('Failed to delete resources', err)
         });
     })
 
@@ -204,7 +204,7 @@ createButton.addEventListener('click', async () => {
     }
 
     if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
-        message.innerHTML = 'Please fill all fields!!!!';
+        message.innerHTML = 'Fill out all fields!!!!';
         return;
     };
 
@@ -228,10 +228,10 @@ createButton.addEventListener('click', async () => {
     const remainingWorkHours = (totalDays * 24) - totalBusyHours;
 
 
-    // if (totalWorkHours < projectHours) {
-    //     message.innerHTML = 'Total work hours exceed project hours';
-    //     return;
-    // };
+    if (remainingWorkHours < projectHours) {
+        message.innerHTML = 'Added availability is after the project deadline';
+        return;
+    };
 
 
     const workHoursPerDay = projectHours / totalDays;
@@ -249,7 +249,14 @@ createButton.addEventListener('click', async () => {
             return;
         }
         
-        const workHours = workHoursPerDay + (i < remainingWorkHours ? 1 : 0);
+        let workHours = Math.floor(workHoursPerDay);
+        if (i < remainingWorkHours % totalDays) {
+            workHours += 1;
+        }
+
+
+
+
         busynessData.push({date, busyHours, workHours});
     }
     
@@ -265,7 +272,7 @@ createButton.addEventListener('click', async () => {
     // message.style.color = "green";
     // message.innerHTML = 'saved successfully';
 
-    console.log(newProject);
+    // console.log(newProject);
     
 });
 
