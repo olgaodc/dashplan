@@ -59,8 +59,6 @@ const displayItems = (projectItem) => {
     deleteProject.setAttribute('src', './img/trash-icon.png');
     projectInfoWrapper.append(deleteProject);
 
-    // const itemId = localStorage.getItem('id');
-
     deleteProject.addEventListener('click', () => {
         localStorage.setItem('id', projectItem.id);
         const itemId = localStorage.getItem('id');
@@ -156,7 +154,6 @@ const postProject = async (newProject) => {
 const addButton = document.getElementById('add-button');
 
 addButton.addEventListener("click", () => {
-    // event.preventDefault();
     const formBottomSection = document.createElement('div');
     formBottomSection.setAttribute('class', 'form-bottom-section');
     formBottomSection.innerHTML = `<div>
@@ -205,6 +202,11 @@ createButton.addEventListener('click', async () => {
     const form = document.querySelector('.form');
     form.append(message);
 
+    if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
+        message.innerHTML = 'Fill out all fields!!!!';
+        return;
+    };
+
     if(projectHours < 1) {
       return message.innerHTML = "Project Hours cannot be less than 1";
     }
@@ -212,11 +214,6 @@ createButton.addEventListener('click', async () => {
     if(projectHours > 300) {
         return message.innerHTML = "Project Hours cannot be more than 300";
     }
-
-    if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
-        message.innerHTML = 'Fill out all fields!!!!';
-        return;
-    };
 
     // Calculate totalDays based on the current date and deadline
     const today = new Date();
@@ -260,7 +257,6 @@ createButton.addEventListener('click', async () => {
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
 
-        
         if(busyHours < 0) {
             return message.innerHTML = "Busy hours cannot be less than 0";
         }
@@ -280,9 +276,6 @@ createButton.addEventListener('click', async () => {
             workHours += 1;
         }
 
-
-
-
         busynessData.push({date, busyHours, workHours});
     }
     
@@ -294,11 +287,6 @@ createButton.addEventListener('click', async () => {
     };
     
     postProject(newProject);
-    
-    // message.style.color = "green";
-    // message.innerHTML = 'saved successfully';
-
-    // console.log(newProject);
     
 });
 
