@@ -51,7 +51,7 @@ const displayItems = (projectItem) => {
 
     const projectInfo = document.createElement('div');
     projectInfo.setAttribute('class', 'projectInfo');
-    projectInfo.innerHTML = `There are a working plan for your project ${name}, your deadline is ${deadline}:`
+    projectInfo.innerHTML = `Here is a working plan for your project ${name}, your deadline is ${deadline}:`
     projectInfoWrapper.append(projectInfo);
 
     const deleteProject = document.createElement('img');

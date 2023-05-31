@@ -101,7 +101,7 @@ body {
 .hero-button {
     display: flex;
     align-self: center;
-    max-width: 170px;
+    max-width: 200px;
     padding: 12px 30px;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
@@ -214,7 +214,7 @@ body {
     background-color: white;
     cursor: pointer;
     max-width: 130px;
-    padding: 10px 20px;
+    padding: 12px 20px;
     cursor: pointer;
     border-radius: 25px;
     transition: 0.2s;
