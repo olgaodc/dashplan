@@ -59,7 +59,7 @@ const displayItems = (projectItem) => {
     deleteProject.setAttribute('src', './img/trash-icon.png');
     projectInfoWrapper.append(deleteProject);
 
-    const itemId = localStorage.getItem('id');
+    // const itemId = localStorage.getItem('id');
 
     deleteProject.addEventListener('click', () => {
         localStorage.setItem('id', projectItem.id);
@@ -195,8 +195,8 @@ createButton.addEventListener('click', async () => {
     const form = document.querySelector('.form');
     form.append(message);
 
-    if(projectHours < 0) {
-      return message.innerHTML = "Project Hours cannot be less than 0";
+    if(projectHours < 1) {
+      return message.innerHTML = "Project Hours cannot be less than 1";
     }
 
     if(projectHours > 300) {
@@ -212,6 +212,10 @@ createButton.addEventListener('click', async () => {
     const today = new Date();
     const deadlineDate = new Date(deadline);
     const totalDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
+
+    // if (deadline < today) {
+    //     return message.innerHTML = 'The deadline cannot be a past date';
+    // }
 
     let totalBusyHours = 0;
 
@@ -244,9 +248,13 @@ createButton.addEventListener('click', async () => {
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
 
-        if(busyHours < 0 || busyHours > 24) {
-            message.innerHTML = 'Bad hours';
-            return;
+        
+        if(busyHours < 0) {
+            return message.innerHTML = "Busy hours cannot be less than 0";
+        }
+  
+        if(busyHours > 10) {
+            return message.innerHTML = "Busy hours cannot be more than 10";
         }
         
         let workHours = Math.floor(workHoursPerDay);
