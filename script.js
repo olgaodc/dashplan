@@ -59,6 +59,8 @@ const displayItems = (projectItem) => {
     deleteProject.setAttribute('src', './img/trash-icon.png');
     projectInfoWrapper.append(deleteProject);
 
+    // const itemId = localStorage.getItem('id');
+
     deleteProject.addEventListener('click', () => {
         localStorage.setItem('id', projectItem.id);
         const itemId = localStorage.getItem('id');
@@ -154,6 +156,7 @@ const postProject = async (newProject) => {
 const addButton = document.getElementById('add-button');
 
 addButton.addEventListener("click", () => {
+    // event.preventDefault();
     const formBottomSection = document.createElement('div');
     formBottomSection.setAttribute('class', 'form-bottom-section');
     formBottomSection.innerHTML = `<div>
@@ -166,16 +169,15 @@ addButton.addEventListener("click", () => {
                                     </div>
                                     <button class="removeDate button">
                                         <img class="removeDateButton-image" src="./img/remove.png">
-                                    </button>`;
+                                    </button`;
     const formBottom = document.querySelector('.form-bottom');
     formBottom.append(formBottomSection);
 
     const removeDateButton = formBottomSection.querySelector('.removeDate');
-        removeDateButton.addEventListener('click', () => {
-            const formBottomSection = removeDateButton.closest('.form-bottom-section');
-            formBottomSection.remove();
-        })
-    
+    removeDateButton.addEventListener('click', () => {
+        const formBottomSection = removeDateButton.closest('.form-bottom-section');
+        formBottomSection.remove();
+    });
 });
 
 
@@ -190,6 +192,7 @@ createButton.addEventListener('click', async () => {
     const deadline = document.getElementById('deadline').value;
     
     const dateInputs = document.querySelectorAll('.date');
+
     const busyHoursInputs = document.querySelectorAll('.busyHours');
     const busynessData = [];
 
@@ -202,11 +205,6 @@ createButton.addEventListener('click', async () => {
     const form = document.querySelector('.form');
     form.append(message);
 
-    if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
-        message.innerHTML = 'Fill out all fields!!!!';
-        return;
-    };
-
     if(projectHours < 1) {
       return message.innerHTML = "Project Hours cannot be less than 1";
     }
@@ -215,7 +213,10 @@ createButton.addEventListener('click', async () => {
         return message.innerHTML = "Project Hours cannot be more than 300";
     }
 
-    // Calculate totalDays based on the current date and deadline
+    if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
+        return message.innerHTML = 'Fill out all fields!!!!';
+    };
+
     const today = new Date();
     const deadlineDate = new Date(deadline);
     const totalDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
@@ -226,7 +227,6 @@ createButton.addEventListener('click', async () => {
 
     let totalBusyHours = 0;
 
-    // Calculate total busy hours
     for (let i = 0; i < busyHoursInputs.length; i++) {
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
@@ -240,23 +240,21 @@ createButton.addEventListener('click', async () => {
 
 
     if (remainingWorkHours < projectHours) {
-        message.innerHTML = 'Added availability is after the project deadline';
-        return;
+        return message.innerHTML = 'Added availability is after the project deadline';
     };
 
 
     const workHoursPerDay = projectHours / totalDays;
 
-
     const selectedDates = new Set();
 
-    // Generate the busynessData array with work hours per day
     for (let i = 0; i < dateInputs.length; i++) {
         const dateInput = dateInputs[i];
         const date = dateInput.value;
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
 
+        
         if(busyHours < 0) {
             return message.innerHTML = "Busy hours cannot be less than 0";
         }
@@ -296,34 +294,34 @@ function hasEmptyInputs(inputs) {
 
 
 
-function generateDates() {
-    // Tęstinis kodas, kuriame jau yra įvestos pradinės datos ir užimtos valandos
+// function generateDates() {
+//     // Tęstinis kodas, kuriame jau yra įvestos pradinės datos ir užimtos valandos
 
-    // Gaukite pirmąją įvestą datą ir užimtų valandų skaičių
-    const startDateInput = document.getElementById('startDate');
-    const startDate = new Date(startDateInput.value);
-    const busyHoursInput = document.getElementById('busyHours');
-    const busyHours = Number(busyHoursInput.value);
+//     // Gaukite pirmąją įvestą datą ir užimtų valandų skaičių
+//     const startDateInput = document.getElementById('startDate');
+//     const startDate = new Date(startDateInput.value);
+//     const busyHoursInput = document.getElementById('busyHours');
+//     const busyHours = Number(busyHoursInput.value);
 
-    // Nustatykite projekto trukmę
-    const deadlineInput = document.getElementById('deadline');
-    const deadline = new Date(deadlineInput.value);
-    const totalDays = Math.ceil((deadline - startDate) / (1000 * 60 * 60 * 24));
+//     // Nustatykite projekto trukmę
+//     const deadlineInput = document.getElementById('deadline');
+//     const deadline = new Date(deadlineInput.value);
+//     const totalDays = Math.ceil((deadline - startDate) / (1000 * 60 * 60 * 24));
 
-    // Sukurkite masyvą, kuriame saugosite duomenis apie datą ir valandas
-    const busynessData = [];
+//     // Sukurkite masyvą, kuriame saugosite duomenis apie datą ir valandas
+//     const busynessData = [];
 
-    // Generuokite ir užpildykite likusias datas su valandomis
-    for (let i = 0; i < totalDays; i++) {
-    const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000); // Pridėkite 1 dieną prie pradinės datos
-    const currentDateString = currentDate.toISOString().split('T')[0]; // Konvertuokite datą į tinkamą formatą (be laiko)
-    const workHours = 24 - busyHours; // Skaičiuokite laisvas valandas (24 valandos per dieną - užimtos valandos)
+//     // Generuokite ir užpildykite likusias datas su valandomis
+//     for (let i = 0; i < totalDays; i++) {
+//     const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000); // Pridėkite 1 dieną prie pradinės datos
+//     const currentDateString = currentDate.toISOString().split('T')[0]; // Konvertuokite datą į tinkamą formatą (be laiko)
+//     const workHours = 24 - busyHours; // Skaičiuokite laisvas valandas (24 valandos per dieną - užimtos valandos)
     
-    busynessData.push({ date: currentDateString, busyHours, workHours });
-    }
+//     busynessData.push({ date: currentDateString, busyHours, workHours });
+//     }
 
-    // Atvaizduokite sugeneruotus duomenis arba panaudokite juos kitai veiksmų
-    console.log(busynessData);
+//     // Atvaizduokite sugeneruotus duomenis arba panaudokite juos kitai veiksmų
+//     console.log(busynessData);
 
-}
+// }
 
