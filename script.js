@@ -183,6 +183,7 @@ addButton.addEventListener("click", () => {
 
 
 
+
 const createButton = document.getElementById('create-button');
 let message;
 
@@ -211,7 +212,7 @@ createButton.addEventListener('click', async () => {
     const isValid = Number.isInteger(Number(value));
 
     if (!isValid) {
-    return message.innerHTML= 'Please enter a whole number.';
+    return message.innerHTML= 'Please enter a whole number';
     }
 
     // projectHours number validation
@@ -232,7 +233,6 @@ createButton.addEventListener('click', async () => {
     today.setHours(0, 0, 0, 0);
     const deadlineDate = new Date(deadline);
     deadlineDate.setHours(0, 0, 0, 0);
-    const totalDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
 
     if (deadlineDate < today) {
         return message.innerHTML = 'The deadline cannot be a past date';
@@ -245,10 +245,15 @@ createButton.addEventListener('click', async () => {
         return message.innerHTML = 'The date cannot be a past date';
     }
 
+    if (selectedDate > deadlineDate) {
+        return message.innerHTML = 'The date cannot be after the project deadline';
+    }
+
     if (deadlineDate.getTime() === today.getTime()) {
         return message.innerHTML = 'The deadline cannot be today';
     }
 
+    const totalDays = countTotalDays();
    
     //busyHours calculation
     let totalBusyHours = 0;
@@ -256,11 +261,19 @@ createButton.addEventListener('click', async () => {
     for (let i = 0; i < busyHoursInputs.length; i++) {
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
-        const isValid = Number.isInteger(Number(busyHours));
+        const isValid = Number.isInteger(busyHours);
     
         if (!isValid) {
-        return message.innerHTML= 'Please enter a whole number.';
+        return message.innerHTML= 'Please enter a whole number';
         };
+
+        if(busyHours < 0) {
+            return message.innerHTML = "Busy hours cannot be less than 0";
+        }
+  
+        if(busyHours > 10) {
+            return message.innerHTML = "Busy hours cannot be more than 10";
+        }
 
         totalBusyHours += busyHours;
     }
@@ -275,7 +288,9 @@ createButton.addEventListener('click', async () => {
         return message.innerHTML = 'Added availability is after the project deadline';
     };
 
-    const workHoursPerDay = projectHours / totalDays;
+    const workHoursPerDay = Math.floor(projectHours / totalDays);
+    const remainingWorkHoursPerDay = projectHours % totalDays;
+    
     const selectedDates = new Set();
 
     for (let i = 0; i < dateInputs.length; i++) {
@@ -284,23 +299,14 @@ createButton.addEventListener('click', async () => {
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
 
-        
-        if(busyHours < 0) {
-            return message.innerHTML = "Busy hours cannot be less than 0";
-        }
-  
-        if(busyHours > 10) {
-            return message.innerHTML = "Busy hours cannot be more than 10";
-        }
-
         if (selectedDates.has(date)) {
             return message.innerHTML = "Duplicate date entry";
         }
 
         selectedDates.add(date); 
         
-        let workHours = Math.floor(workHoursPerDay);
-        if (i < remainingWorkHours % totalDays) {
+        let workHours = workHoursPerDay;
+        if (i < remainingWorkHoursPerDay) {
             workHours += 1;
         }
 
@@ -321,6 +327,20 @@ createButton.addEventListener('click', async () => {
 function hasEmptyInputs(inputs) {
     return Array.from(inputs).some((input) => input.value === '');
 }
+
+
+function countTotalDays() {
+    const dateInput = document.getElementsByClassName('date');
+    let totalDays = 0;
+    
+    for (let i = 0; i < dateInput.length; i++) {
+        if (dateInput[i].value) { // Check if the input has a value
+            totalDays++;
+        }
+    }
+    return totalDays;
+}
+
 
 
 
