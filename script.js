@@ -206,6 +206,10 @@ createButton.addEventListener('click', async () => {
     const form = document.querySelector('.form');
     form.append(message);
 
+    if (projectName.length > 30) {
+        return message.innerHTML= 'Project name cannot be more than 30 symbols';
+    }
+
     // projectHours whole number validation
     const projectHoursInput = document.getElementById('projectHours');
     const value = projectHoursInput.value;
@@ -225,7 +229,7 @@ createButton.addEventListener('click', async () => {
 
     //All fields validation
     if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
-        return message.innerHTML = 'Fill out all fields!!!!';
+        return message.innerHTML = 'Fill out all fields';
     };
 
     //dates validation
@@ -236,17 +240,6 @@ createButton.addEventListener('click', async () => {
 
     if (deadlineDate < today) {
         return message.innerHTML = 'The deadline cannot be a past date';
-    }
-
-    const date = document.querySelector('.date');
-    const selectedDate = new Date(date.value);
-    selectedDate.setHours(0, 0, 0, 0);
-    if (selectedDate < today) {
-        return message.innerHTML = 'The date cannot be a past date';
-    }
-
-    if (selectedDate > deadlineDate) {
-        return message.innerHTML = 'The date cannot be after the project deadline';
     }
 
     if (deadlineDate.getTime() === today.getTime()) {
@@ -285,7 +278,7 @@ createButton.addEventListener('click', async () => {
 
 
     if (remainingWorkHours < projectHours) {
-        return message.innerHTML = 'Added availability is after the project deadline';
+        return message.innerHTML = 'Project hours exceed availability';
     };
 
     const workHoursPerDay = Math.floor(projectHours / totalDays);
@@ -298,6 +291,16 @@ createButton.addEventListener('click', async () => {
         const date = dateInput.value;
         const busyHoursInput = busyHoursInputs[i];
         const busyHours = Number(busyHoursInput.value);
+
+        const selectedDate = new Date(date);
+
+        if (selectedDate < today) {
+            return message.innerHTML = 'Availability cannot be a past date';
+        }
+
+        if (selectedDate > deadlineDate) {
+            return message.innerHTML = 'Availability cannot be after the project deadline';
+        }
 
         if (selectedDates.has(date)) {
             return message.innerHTML = "Duplicate date entry";
