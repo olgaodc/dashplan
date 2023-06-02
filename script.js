@@ -59,8 +59,6 @@ const displayItems = (projectItem) => {
     deleteProject.setAttribute('src', './img/trash-icon.png');
     projectInfoWrapper.append(deleteProject);
 
-    // const itemId = localStorage.getItem('id');
-
     deleteProject.addEventListener('click', () => {
         localStorage.setItem('id', projectItem.id);
         const itemId = localStorage.getItem('id');
@@ -156,9 +154,8 @@ const postProject = async (newProject) => {
 const addButton = document.getElementById('add-button');
 
 addButton.addEventListener("click", () => {
-    // event.preventDefault();
     const formBottomSection = document.createElement('div');
-    formBottomSection.setAttribute('class', 'form-bottom-section');
+    formBottomSection.setAttribute('class', 'form-bottom-section additional');
     formBottomSection.innerHTML = `<div>
                                         <label for="date">Date:</label>
                                         <input type="date" name="date" class="date">
@@ -210,7 +207,6 @@ createButton.addEventListener('click', async () => {
         return message.innerHTML= 'Project name cannot be more than 30 symbols';
     }
 
-    // projectHours whole number validation
     const projectHoursInput = document.getElementById('projectHours');
     const value = projectHoursInput.value;
     const isValid = Number.isInteger(Number(value));
@@ -219,20 +215,18 @@ createButton.addEventListener('click', async () => {
     return message.innerHTML= 'Please enter a whole number';
     }
 
-    // projectHours number validation
     if(projectHours < 1) {
       return message.innerHTML = "Project hours cannot be less than 1";
     }
+
     if(projectHours > 300) {
         return message.innerHTML = "Project hours cannot be more than 300";
     }
 
-    //All fields validation
     if (!projectName || !projectHours || !deadline || hasEmptyInputs(dateInputs) || hasEmptyInputs(busyHoursInputs)) {
         return message.innerHTML = 'Fill out all fields';
     };
 
-    //dates validation
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const deadlineDate = new Date(deadline);
@@ -248,7 +242,6 @@ createButton.addEventListener('click', async () => {
 
     const totalDays = countTotalDays();
    
-    //busyHours calculation
     let totalBusyHours = 0;
 
     for (let i = 0; i < busyHoursInputs.length; i++) {
@@ -324,6 +317,9 @@ createButton.addEventListener('click', async () => {
     };
     
     postProject(newProject);
+
+    clearForm();
+
     
 });
 
@@ -337,44 +333,28 @@ function countTotalDays() {
     let totalDays = 0;
     
     for (let i = 0; i < dateInput.length; i++) {
-        if (dateInput[i].value) { // Check if the input has a value
+        if (dateInput[i].value) {
             totalDays++;
         }
     }
     return totalDays;
 }
 
+function clearForm() {
+    const formTop = document.querySelector('.form-top');
+    const formBottom = document.querySelector('.form-bottom');
 
+    formTop.querySelectorAll('input').forEach((input) => {
+        input.value = '';
+    });
 
+    formBottom.querySelectorAll('input').forEach((input) => {
+        input.value = '';
+    });
 
-// function generateDates() {
-//     // Tęstinis kodas, kuriame jau yra įvestos pradinės datos ir užimtos valandos
+    formBottom.querySelectorAll('.additional').forEach((section) => {
+        section.remove();
+    });
 
-//     // Gaukite pirmąją įvestą datą ir užimtų valandų skaičių
-//     const startDateInput = document.getElementById('startDate');
-//     const startDate = new Date(startDateInput.value);
-//     const busyHoursInput = document.getElementById('busyHours');
-//     const busyHours = Number(busyHoursInput.value);
-
-//     // Nustatykite projekto trukmę
-//     const deadlineInput = document.getElementById('deadline');
-//     const deadline = new Date(deadlineInput.value);
-//     const totalDays = Math.ceil((deadline - startDate) / (1000 * 60 * 60 * 24));
-
-//     // Sukurkite masyvą, kuriame saugosite duomenis apie datą ir valandas
-//     const busynessData = [];
-
-//     // Generuokite ir užpildykite likusias datas su valandomis
-//     for (let i = 0; i < totalDays; i++) {
-//     const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000); // Pridėkite 1 dieną prie pradinės datos
-//     const currentDateString = currentDate.toISOString().split('T')[0]; // Konvertuokite datą į tinkamą formatą (be laiko)
-//     const workHours = 24 - busyHours; // Skaičiuokite laisvas valandas (24 valandos per dieną - užimtos valandos)
-    
-//     busynessData.push({ date: currentDateString, busyHours, workHours });
-//     }
-
-//     // Atvaizduokite sugeneruotus duomenis arba panaudokite juos kitai veiksmų
-//     console.log(busynessData);
-
-// }
+}
 
